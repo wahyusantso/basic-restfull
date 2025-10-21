@@ -43,4 +43,16 @@ export class TodolistServices {
             response.end();
         });
     }
+
+    deleteTodo(request, response) {
+        request.addListener('data', (data) => {
+            const body = JSON.parse(data.toString());
+            if (this.todolist[body.id]) {
+                this.todolist.splice(body.id, 1);
+            }
+
+            response.write(this.getJsonTodoList());
+            response.end();
+        });
+    }
 }
