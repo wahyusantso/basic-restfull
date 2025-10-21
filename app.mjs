@@ -1,8 +1,13 @@
 import http from "http";
+import { TodolistServices } from "./todolist-services.mjs";
 
+const service = new TodolistServices();
 const server = http.createServer((request, response) => {
-    response.write('TodoList API...');
-    response.end();
+    
+    response.setHeader("Content-Type", "application/json"); //return format json
+    if (request.method === "GET") {
+        service.getTodoList(request, response);
+    }
 });
 
 server.listen(3000);
